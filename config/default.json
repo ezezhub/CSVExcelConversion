@@ -1,0 +1,9 @@
+{
+    // GOOGLE API module configs
+    "googleapi-config": {
+        "token_path": "test_token",
+        "credentials_path": "test-credentials",
+        "spreadsheetId": " ",
+        "range": ""
+    }
+}

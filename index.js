@@ -1,5 +1,6 @@
 const config = require('config');
 const fs = require('fs');
+const csv = require('csv-parser');
 const readline = require('readline');
 
 const googleConfig = config.get('configfile.googleapi-config');
@@ -12,6 +13,14 @@ fs.readdir(folderDir, (err, files) => {
     files.forEach(file => {
         console.log(file);
         if (file.startsWith("CC")) {
+            fs.createReadStream(folderDir + "/" + file)
+                .pipe(csv(["Date", "Item", "Price", "Account"]))
+                .on('data', (row) => {
+                    console.log(row);
+                })
+                .on('end', () => {
+                    console.log('CSV file successfully processed');
+                });
             console.log("This is the credit card : " + file)
         } else if (file.startsWith("OCBC")) {
             console.log("This is the OCBC Bank: " + file)
@@ -23,10 +32,10 @@ fs.readdir(folderDir, (err, files) => {
     })
 })
 // Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
+//fs.readFile('credentials.json', (err, content) => {
+//    if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(googleConfig);
-});
+//    authorize(googleConfig);
+//});
 
 

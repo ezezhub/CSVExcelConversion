@@ -3,30 +3,29 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 const googleConfig = config.get('configfile.googleapi-config');
 const folderDir = config.get('configfile.directory.path');
+const { google } = require('googleapis');
+const keys = require(googleConfig.credentials_path)
 
 var transactionList = [];
 
-// Load client secrets from a local file.
-//fs.readFile('credentials.json', (err, content) => {
-//    if (err) return console.log('Error loading client secret file:', err);
-// Authorize a client with credentials, then call the Google Sheets API.
-//    authorize(googleConfig);
-//});
+// Load gclient from local keys file.
+const gclient = new google.auth.JWT(keys.client_email, null, keys.private_key, ['https://www.googleapis.com/auth/spreadsheets']);
+gclient.authorize(function (error, tokens) {
+    if (error) { console.log(error); return; }
+    else { console.log('Connected to Google Sheet Service...'); }
+});
 
-// Read the folder first, After completed ETL then write to google sheet.
+// Read the folder first, After completed ETL then write to Google Sheet.
 fs.readdir(folderDir, (err, files) => {
     files.forEach(file => {
         if (file.startsWith("CC")) {
             if (file.includes("TXN_History")) {
-
                 var workbook = XLSX.readFile(folderDir + "/" + file);
                 const temp = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { range: 9 })
-                let data = [];
                 temp.forEach(function (transaction) {
                     if (transaction["Transaction Date"] != undefined) {
                         transactionList.push(convertUOBTransaction(transaction))
                     }
-
                 });
             } else {
                 fs.readFileSync(folderDir + "/" + file, 'utf-8').split(/\r?\n/).forEach(function (line) {
@@ -37,7 +36,6 @@ fs.readdir(folderDir, (err, files) => {
                         } else {
                             transactionList.push(convertCitiTransaction(transaction))
                         }
-
                     };
                 })
             }
@@ -53,6 +51,17 @@ fs.readdir(folderDir, (err, files) => {
     transactionList.forEach(function (entry) {
         console.log(entry);
     });
+
+    const updateoptions = {
+        spreadsheetId: googleConfig.spreadsheetId,
+        range: googleConfig.spreadsheetId + "!A1",
+        valueInputOption: "USER_ENTERED",
+        resource: { values: transactionList }
+    };
+
+    let resp = google.spreadsheets.values.update(updateoptions);
+    console.log(resp);
+
 })
 
 function convertCitiTransaction(transaction) {

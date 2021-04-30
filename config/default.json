@@ -1,10 +1,9 @@
 {
     "configfile": {
         "googleapi-config": {
-            "token_path": "test_token",
-            "credentials_path": "test-credentials",
-            "spreadsheetId": " ",
-            "range": ""
+            "credentials_path": "C:\\Users\\dev\\Desktop\\key.json",
+            "spreadsheetId": "",
+            "rangeId": "RAW"
         },
         "directory": {
             "path": "C:\\Users\\dev\\Desktop\\CC"

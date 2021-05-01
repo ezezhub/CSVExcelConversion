@@ -20,6 +20,7 @@
   "dependencies": {
     "config": "^3.3.6",
     "googleapis": "^39.2.0",
+    "natural": "^5.0.3",
     "xlsx": "^0.16.9"
   }
 }

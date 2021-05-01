@@ -1,12 +1,12 @@
 {
     "configfile": {
         "googleapi-config": {
-            "credentials_path": "C:\\Users\\dev\\Desktop\\key.json",
-            "spreadsheetId": "",
-            "rangeId": "RAW"
+            "credentials_path": "/Users/home/Desktop/config/key.json",
+            "spreadsheet": "/Users/home/Desktop/config/sheet.json"
         },
-        "directory": {
-            "path": "C:\\Users\\dev\\Desktop\\CC"
+        "directory-config": {
+            "path": "/Users/home/Desktop/2021_Account/preprocess",
+            "model": "/Users/home/Desktop/config/model.csv"
         }
     }
 }

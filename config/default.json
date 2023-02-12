@@ -1,12 +1,12 @@
 {
     "configfile": {
         "googleapi-config": {
-            "credentials_path": "/Users/home/Desktop/config/key.json",
-            "spreadsheet": "/Users/home/Desktop/config/sheet.json"
+            "credentials_path": "/Users/dev/Desktop/config/key.json",
+            "spreadsheet": "/Users/dev/Desktop/config/sheet.json"
         },
         "directory-config": {
-            "path": "/Users/home/Desktop/2021_Account/preprocess",
-            "model": "/Users/home/Desktop/config/model.csv"
+            "path": "/Users/dev/Downloads/test/",
+            "model": "/Users/dev/Desktop/config/model.csv"
         }
     }
 }

@@ -54,18 +54,19 @@ fs.readdir(folderDir.path, (err, files) => {
     var ModifiedTransactionList = [];
     transactionList.forEach(function (entry) {
         temp = [entry["Card"], entry["Month"], entry["Amount"], entry["Remark"], entry["TYPE"].replace(/^["'](.+(?=["']$))["']$/, '$1')];
+        console.log(temp)
         ModifiedTransactionList.push(temp);
     });
 
     // Load gclient from local keys file.
-    const gclient = new google.auth.JWT(keys.client_email, null, keys.private_key, ['https://www.googleapis.com/auth/spreadsheets']);
-    gclient.authorize(function (error, tokens) {
-        if (error) { console.log(error); return; }
-        else {
-            console.log('Connected to Google Sheet Service...');
-            updateGoogleSheet(gclient, ModifiedTransactionList);
-        }
-    });
+    //const gclient = new google.auth.JWT(keys.client_email, null, keys.private_key, ['https://www.googleapis.com/auth/spreadsheets']);
+    //gclient.authorize(function (error, tokens) {
+    //    if (error) { console.log(error); return; }
+    //    else {
+    //        console.log('Connected to Google Sheet Service...');
+    //        updateGoogleSheet(gclient, ModifiedTransactionList);
+    //    }
+    //});
 
 })
 
